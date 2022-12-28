@@ -1,0 +1,161 @@
+<div class="total_center">
+  <div *ngIf="settingpage=='all'"><select [(ngModel)]="chosenMod" (ngModelChange)="onChenge()">
+      <option value="1">Running Today movies</option>
+      <option value="2">Running Upcoming movie</option>
+      <option value="3"> booking-Opened</option>
+      <option value="4"> Bookings-Stoped</option>
+
+    </select></div>
+
+
+  <div class="grid-container"*ngIf="movies.length==0"><h3>No-Movies Found</h3></div>
+
+  <div  [ngSwitch]="settingpage" >
+    <div *ngSwitchCase="'all'" >
+
+
+<div class="grid-container">
+
+      <div *ngFor="let movie of movies">
+
+      <div (click)="getView(movie.movieId)"  class="card grid-item" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{movie.movieName}}</h5>
+          <p class="card-text">Movie Cast : {{movie.movieCast}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Price : {{movie.prize}}</li>
+          <li class="list-group-item">Avaibale Seats : {{movie.availableSeats}}</li>
+          <li class="list-group-item">Date: {{movie.date}}</li>
+          <li class="list-group-item">Show Timings : {{movie.time}}</li>
+          <li class="list-group-item">Movie Status: {{movie.movieStatus}}</li>
+          <li class="list-group-item">Screen Type: {{movie.screen.type}}</li>
+          <li class="list-group-item">Total seats: {{movie.screen.totalSeats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Screen: {{movie.screen.screenId}}</a>
+          <a href="#" class="card-link">Screen Type: {{movie.screen.type}}</a>
+        </div>
+      </div></div></div>
+
+      <!-- <div *ngFor="let movie of movies" class="main_table">
+        <div (click)="getView(movie.movieId)" class="table_seperate">
+
+          <p class="p_table unique">Movie Name : {{movie.movieName}}</p>
+          <p class="p_table">Movie Cast : {{movie.movieCast}}</p>
+          <p class="p_table">Price : {{movie.prize}}</p>
+          <p class="p_table">Avaibale Seats : {{movie.availableSeats}}</p>
+          <p class="p_table unique">Show Timmings : {{movie.time}}</p>
+          <p class="p_table">Date: {{movie.date}}</p>
+          <p class="p_table">Bookings Open : {{movie.bookingOpened}}</p>
+          <p class="p_table">Movie Status: {{movie.movieStatus}}</p>
+          <p class="p_table unique">Screen: {{movie.screen.screenId}}</p>
+          <p class="p_table">Screen Type: {{movie.screen.type}}</p>
+          <p class="p_table">Total seats: {{movie.screen.totalSeats}}</p>
+        </div>
+      </div> -->
+
+
+    </div>
+    <div *ngSwitchCase="'perticular'" >
+      <div class="fon-size" >
+        <div class="button-align">
+        <button (click)="changepage()">Back</button>
+        <button  (click)="PerticularSetting(view[0])">more-setting</button>
+        </div>
+
+        <div class="card text-center">
+          <div class="card-header">
+            {{view[0].movieName}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{view[0].movieName}}</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex">
+                <div class="col-6 label_class">BOOKING OPEN</div>
+
+                <div class="col d-flex  hgjhjh"><div class="main mt-1">
+                  <div (click)="changeStatus(view[0].movieId)" [ngClass]="view[0].bookingOpened?'curs':'curs1'">
+                  </div>
+                </div>
+                <div class="col-2 label_class-dark" *ngIf="view[0].bookingOpened">Stop Opening</div>
+                <div class="col-2 label_class-dark" *ngIf="!view[0].bookingOpened">Open Booking</div>
+              </div>
+              </li>
+
+            </ul>
+
+            <a  class="btn btn-primary">
+              MOVIE ID-{{view[0].movieId}}
+          </a>
+
+          </div>
+          <div class="card-footer text-muted">
+            {{view[0].date}} : {{view[0].time}}
+
+          </div>
+        </div>
+        <!-- <div class="container">
+          <div class="row">
+            <div class="col label_class">MOVIE NAME</div>
+            <div class="col label_class-dark">{{view[0].movieName}}</div>
+          </div>
+          <div class="row">
+            <div class="col label_class">MOVIE ID</div>
+            <div class="col label_class-dark">{{view[0].movieId}}</div>
+          </div>
+          <div class="row">
+            <div class="col-6 label_class">BOOKING OPEN</div>
+            <div class="col-2 label_class-dark"></div>
+            <div class="col d-flex"><div class="main mt-1">
+              <div (click)="changeStatus(view[0].movieId)" [ngClass]="view[0].bookingOpened?'curs':'curs1'">
+              </div>
+            </div>
+            <div class="col-2 label_class-dark" *ngIf="view[0].bookingOpened">Disabled</div>
+            <div class="col-2 label_class-dark" *ngIf="!view[0].bookingOpened">Enable</div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col label_class">Date</div>
+            <div class="col label_class-dark">{{view[0].date}}</div>
+          </div>
+        </div> -->
+
+    </div>
+    </div>
+    <div *ngSwitchCase="'perticular-setting'" >
+      <div class="gapping">
+      <button (click)="PericularSettingControl('one-step')">back</button>
+      <button (click)="PericularSettingControl('two-step')">Main Menu</button>
+      </div>
+      <div class="d-flex">
+        <div class="bg-white left-seats">
+        <tr *ngFor="let b of line">
+        <td *ngFor="let a of numbers">
+         <div (click)="selectSeat(b+a)">
+
+           <img  *ngIf="avaiable(b+a)==='filled' " class="sofaicon" src="../../../assets/images11.png" />
+           <img  *ngIf="avaiable(b+a)==='avail' " class="sofaicon" src="../../../assets/images.png" />
+           <img  *ngIf="avaiable(b+a)==='locked'" class="sofaicon" src="../../../assets/locked1.png" />
+           <img  *ngIf="avaiable(b+a)==='none'" class="sofaicon" src="../../../assets/sofa_icon.png" />
+         </div>
+        </td> </tr></div>
+        <div class="btn-groupt">
+          <button class="lock-button" (click)="onClickButton('lock')">Lock</button>
+          <button class="lock-button" (click)="onClickButton('unlock')">UnLock</button>
+          <button class="lock-button">Unselect All</button>
+          <button class="lock-button" (click)="onClickButton('path')">Make path</button>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
