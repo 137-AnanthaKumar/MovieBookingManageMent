@@ -70,7 +70,7 @@ console.log(this.trackingLog.length+" "+ this.value)
 
 
     if((this.trackingLog.length == 10) ){
-      console.log(this.listgroupt[1])
+
       let a=this.listgroupt[0]+10
       // let b=this.listgroupt[1]+10
       let c=[a,10]

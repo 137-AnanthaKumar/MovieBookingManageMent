@@ -36,7 +36,7 @@ public class ManagerControl {
 	@Autowired 
 	ManagerServices service; 
 	@PostMapping("/addemployee/{role}")
-	@PreAuthorize("hasRole('MANAGER') or hasRole('OWNER')")
+//	@PreAuthorize("hasRole('MANAGER') or hasRole('OWNER')")
 	public ResponseEntity<?> addAdminByManager(@RequestBody workersDetails worker,@PathVariable String role,@RequestHeader(value="authorization",defaultValue = "") String auth){
 		String name=util.getUserNameFromJwtToken(auth.substring(7, auth.length()));
 		return  ResponseEntity.ok(service.createNewWorker(worker,name,role));

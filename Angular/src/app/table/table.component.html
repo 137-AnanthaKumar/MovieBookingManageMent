@@ -39,22 +39,7 @@
         </div>
       </div></div></div>
 
-      <!-- <div *ngFor="let movie of movies" class="main_table">
-        <div (click)="getView(movie.movieId)" class="table_seperate">
 
-          <p class="p_table unique">Movie Name : {{movie.movieName}}</p>
-          <p class="p_table">Movie Cast : {{movie.movieCast}}</p>
-          <p class="p_table">Price : {{movie.prize}}</p>
-          <p class="p_table">Avaibale Seats : {{movie.availableSeats}}</p>
-          <p class="p_table unique">Show Timmings : {{movie.time}}</p>
-          <p class="p_table">Date: {{movie.date}}</p>
-          <p class="p_table">Bookings Open : {{movie.bookingOpened}}</p>
-          <p class="p_table">Movie Status: {{movie.movieStatus}}</p>
-          <p class="p_table unique">Screen: {{movie.screen.screenId}}</p>
-          <p class="p_table">Screen Type: {{movie.screen.type}}</p>
-          <p class="p_table">Total seats: {{movie.screen.totalSeats}}</p>
-        </div>
-      </div> -->
 
 
     </div>
@@ -97,40 +82,69 @@
 
           </div>
         </div>
-        <!-- <div class="container">
-          <div class="row">
-            <div class="col label_class">MOVIE NAME</div>
-            <div class="col label_class-dark">{{view[0].movieName}}</div>
-          </div>
-          <div class="row">
-            <div class="col label_class">MOVIE ID</div>
-            <div class="col label_class-dark">{{view[0].movieId}}</div>
-          </div>
-          <div class="row">
-            <div class="col-6 label_class">BOOKING OPEN</div>
-            <div class="col-2 label_class-dark"></div>
-            <div class="col d-flex"><div class="main mt-1">
-              <div (click)="changeStatus(view[0].movieId)" [ngClass]="view[0].bookingOpened?'curs':'curs1'">
-              </div>
-            </div>
-            <div class="col-2 label_class-dark" *ngIf="view[0].bookingOpened">Disabled</div>
-            <div class="col-2 label_class-dark" *ngIf="!view[0].bookingOpened">Enable</div>
-          </div>
-          </div>
-          <div class="row">
-            <div class="col label_class">Date</div>
-            <div class="col label_class-dark">{{view[0].date}}</div>
-          </div>
-        </div> -->
+
 
     </div>
     </div>
     <div *ngSwitchCase="'perticular-setting'" >
-      <div class="gapping">
-      <button (click)="PericularSettingControl('one-step')">back</button>
-      <button (click)="PericularSettingControl('two-step')">Main Menu</button>
-      </div>
-      <div class="d-flex">
+
+
+     <!-- //---  -->
+     <div  [ngSwitch]="insidecontrol" >
+
+     <div  *ngSwitchCase="'ticketspage'"  style="overflow-x: auto;">
+      <nav   aria-label="Page navigation example" >
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="coClickPrevious()" >Previous</a></li>
+        <div class="page-item" *ngFor="let a of numberOfPage">
+          <li class="page-item" (click)="interMediateClice(a)" ><a class="page-link" [ngClass]="a==currentPage? 'currentpage' : '' " >{{a}}</a></li>
+        </div>
+          <li class="page-item"><a class="page-link" (click)="onClickNext()">Next</a></li>
+        </ul>
+      </nav>
+      <button (click)="backToControl()">Close</button>
+      <table>
+        <tr>
+          <th>Ticket Id</th>
+          <th>DateOfBooking</th>
+          <th>Time</th>
+          <th>NoOfPersons</th>
+          <th>EmailId</th>
+          <th>MobileNo</th>
+          <th>MobileNo</th>
+       </tr>
+
+     <tr *ngFor="let details of tikets">
+          <td>{{details.ticketId}}</td>
+          <td>{{details.bookingDate}}</td>
+          <td>{{details.bookingTime}}</td>
+          <td>{{details.noOdMembers}}</td>
+          <td>{{details.mailId}}</td>
+          <td>{{details.mobileNo}}</td>
+          <th><div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+
+                <button class="" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                 View Seats
+                </button>
+
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="" *ngFor="let seat of details.seatsForThisBooking">
+                  <p>{{seat.seatNo}} </p>
+                </div>
+
+               </div>
+            </div>
+
+          </div></th>
+
+    </tr>
+
+      </table>
+    </div>
+
+
+      <div class="d-flex"  *ngSwitchCase="'controlspage'">
         <div class="bg-white left-seats">
         <tr *ngFor="let b of line">
         <td *ngFor="let a of numbers">
@@ -143,13 +157,19 @@
          </div>
         </td> </tr></div>
         <div class="btn-groupt">
+          <div class="gapping d-flex">
+            <button (click)="PericularSettingControl('one-step')">back</button>
+            <button (click)="PericularSettingControl('two-step')">Main Menu</button>
+            </div>
           <button class="lock-button" (click)="onClickButton('lock')">Lock</button>
           <button class="lock-button" (click)="onClickButton('unlock')">UnLock</button>
           <button class="lock-button">Unselect All</button>
           <button class="lock-button" (click)="onClickButton('path')">Make path</button>
+          <button class="lock-button" (click)="onClickView('tickets')">Booked</button>
         </div>
 
-      </div>
+      </div></div>
+         <!-- //---  -->
 
 
 

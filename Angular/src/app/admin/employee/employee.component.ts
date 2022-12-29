@@ -25,6 +25,7 @@ export class EmployeeComponent implements OnInit {
   employee: NewEmployee = new NewEmployee();
   profile: UpdateProfile = new UpdateProfile();
   allDetails: boolean = false;
+  loading:boolean=true;
   //all-emp
   // oneview
   ngOnInit(): void {
@@ -34,6 +35,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   preValidate() {
+    this.loading=true
     if (this.changePass) {
       console.log('Change pass page');
       this.viewPerticularEmployee(this.code);
@@ -41,6 +43,7 @@ export class EmployeeComponent implements OnInit {
     } else {
       this.loadAllEmployee();
     }
+
   }
 
   public popUpCloce() {
@@ -152,11 +155,12 @@ export class EmployeeComponent implements OnInit {
   ];
 
   loadAllEmployee() {
+
     this.employees = [];
     this.service.getAllEmployee().subscribe((data) => {
       this.employees = data;
     });
-
+    this.loading=false
     console.log(this.employees);
   }
 

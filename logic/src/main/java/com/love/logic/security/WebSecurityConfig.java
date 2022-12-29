@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/movie/getMovieDetails/**/**/**").permitAll()
       .antMatchers("/bookmovieticket/bookticket").permitAll()
       .antMatchers("/bookmovieticket/getticket/**/**").permitAll()
-      .antMatchers("/petproject/manager/control/addadmin").permitAll()
+      .antMatchers("/petproject/manager/control/addemployee/**").permitAll()
       
       .anyRequest().authenticated();
 

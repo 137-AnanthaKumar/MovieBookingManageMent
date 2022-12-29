@@ -22,6 +22,10 @@ public interface BookingRepo extends JpaRepository<Bookings, String> {
 	
 	@Query(value="SELECT COUNT(*) FROM booking   WHERE movie_details_movie_id=:movieId  AND mobile_no =:mobile ",nativeQuery=true)
 	int getHow_many_tickets_booked_cound(long mobile, String movieId);
+
+
+	@Query(value="SELECT * FROM booking   WHERE movie_details_movie_id=:movieId ORDER BY booking_date DESC, booking_time DESC limit :from,:range",nativeQuery=true)
+	List<Bookings> findAllByMovieTicketMovieId(String movieId, Integer from, Integer range);
 	
 
 }

@@ -59,6 +59,12 @@ public class AuthController {
 
   @Autowired
   JwtUtils jwtUtils;
+  
+  @PostMapping("/addrole")
+  public String addRoles(@RequestBody Role ro) {
+	return manSer.addRole(ro);
+	  
+  }
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

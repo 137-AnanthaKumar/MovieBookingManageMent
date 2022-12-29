@@ -12,6 +12,7 @@ export class ServiceService implements HttpInterceptor {
   private GET_MOVIE_PERT="http://localhost:8080/movie/getMovieDetails"
   private BOOK_MOVIE="http://localhost:8080/bookmovieticket/bookticket"
   private GET_MY_BOOKED_MOVIES="http://localhost:8080/bookmovieticket/getticket"
+  private GET_BOOKED_MOVIESBYID="http://localhost:8080/bookmovieticket/getAllTicketForthisMovie"
   private POST_MOVOE="http://localhost:8080/movie/addMovie"
   private GET_SCREEN="http://localhost:8080/movie/getScreen"
   private GET_ALLMOVIE_ADMIN="http://localhost:8080/movie/getMovieforTdyforadmin"
@@ -62,6 +63,10 @@ setHeaders:{
 //   return completeToken;
 
 // }
+
+getBookedTickets(id:string,a:number,b:number){
+  return this.httpClient.get<any>(`${this.GET_BOOKED_MOVIESBYID}/${id}/${a}/${b}`)
+}
 roleChange(code:number,role:string){
   return this.httpClient.put<any>(`${this.GET_ROLE_CHANGE}/${code}/${role}`,null)
 }

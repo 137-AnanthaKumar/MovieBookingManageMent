@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,14 @@ public class MovieBookingController {
      	
 	}
 	
+	
+	
+	@GetMapping("getAllTicketForthisMovie/{movieId}/{from}/{range}")
+	@PreAuthorize("hasRole('MANAGER') or hasRole('OWNER') or hasRole('ADMIN')")
+	public ResponseEntity<?> getMovies( @PathVariable String movieId,@PathVariable Integer from,@PathVariable Integer range){
+		List<Bookings> res=bookingservise.getTickets(movieId,from,range);
+     	return ResponseEntity.ok(res);
+	}
 	
 	@GetMapping("getticket/{mobile}/{date}")
 	public ResponseEntity<?> getMovies(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  date, @PathVariable long mobile){

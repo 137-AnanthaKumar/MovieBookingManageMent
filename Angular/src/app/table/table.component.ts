@@ -11,9 +11,10 @@ import { ServiceService } from '../service.service';
 })
 export class TableComponent implements OnInit {
   settingpage:string='all'
+  insidecontrol:string='controlspage'
 periticuarview:boolean=true;
 msg:string=""
-
+tikets:any[]=[]
 "moviedetails":BookMovieDetails=new BookMovieDetails() ;
 bookedseats:string[]=[];
 lockedseats:string[]=[];
@@ -140,6 +141,11 @@ if(val==='two-step'){
    this.settingpage='all'
   }
 
+
+  backToControl(){
+    this.insidecontrol="controlspage"
+  }
+
   bookingOpendMovies(){
    this.servise.getAllBokkingOpenMovie().subscribe(data=>{
     this.movies=data;
@@ -234,6 +240,61 @@ finalJson:any={
   movieId:"",
   selectedSeats:[]
 }
+
+
+listgroupt=[0,10]
+numberOfPage=[1]
+currentPage=1
+interMediateClice(num:number){
+
+  let a=(num*10)-10
+  this.listgroupt=[a,10];
+  this.currentPage=num;
+  // this.getData()
+
+}
+coClickPrevious(){
+  if(this.listgroupt[0]>=10){
+    // let b=this.listgroupt[0]
+    let a=this.listgroupt[0]-10
+    let c=[a,10]
+    this.listgroupt=c;
+    this.currentPage=this.currentPage-1
+    this.numberOfPage.pop()
+    console.log(c)
+    //this.getData()
+  }
+}
+
+onClickNext(){
+  if((this.tikets.length == 10) ){
+
+    let a=this.listgroupt[0]+10
+    // let b=this.listgroupt[1]+10
+    let c=[a,10]
+    this.listgroupt=c;
+    console.log(c)
+ if(this.currentPage==this.numberOfPage.length){
+   this.numberOfPage.push(this.numberOfPage[this.numberOfPage.length-1]+1)
+ }
+
+
+    this.currentPage=this.currentPage+1
+    this.getData()
+  }
+}
+
+onClickView(a:string){
+  this.insidecontrol="ticketspage"
+  this.getData()
+
+}
+ getData(){
+  this.servise.getBookedTickets(this.moviedetails.movie.movieId,this.listgroupt[0],this.listgroupt[1]).subscribe(data=>{
+    this.tikets=data
+    console.log(data)
+      })
+ }
 
 onClickButton(a:string){
 

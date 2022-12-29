@@ -125,4 +125,9 @@ public class BookingServise {
 		
 	}
 
+	public List<Bookings> getTickets(String movieId, Integer from, Integer range) {
+	
+		return tickets.findAllByMovieTicketMovieId(movieId,from,range);
+	}
+
 }

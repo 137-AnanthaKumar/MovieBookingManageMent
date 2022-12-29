@@ -109,6 +109,7 @@ public class ManagerServices {
 		if(userDetailValidation(worker.getUser()).equalsIgnoreCase("FINE")) {
 			
 			int lastCode=workerrepo.getBigestCode();
+//			int lastCode=1012;
 			System.out.println("hii"+ lastCode);
 			worker.setWorkerCode(lastCode+1);
 			//worker.setWorkerCode(1012);
@@ -407,6 +408,12 @@ public MessageResponse roleChange(Integer workerId, String role, String name) {
 public  List<Tracking> getEmployeeActivityAll(Integer rangeFrom, Integer rangeTo, Integer code) {
 	// TODO Auto-generated method stub
 	return trackingRepo.getDataFromTracking(rangeFrom,rangeTo,code);
+}
+
+public String addRole(Role ro) {
+	
+	roleRepository.save(ro);
+	return "sucess";
 }
 	
 	
