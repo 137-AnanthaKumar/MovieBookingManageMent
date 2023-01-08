@@ -10,7 +10,7 @@ import { MovieTicketsSeatsComponent } from './seats/movie-tickets-seats/movie-ti
 import { MoviesComponent } from './movies/movies.component';
 import { ReviewComponent } from './review/review.component';
 import { BookingComponent } from './booking/booking.component';
-import { BookingFailedComponent } from './booking-failed/booking-failed.component';
+
 import { SearchComponent } from './search/search.component';
 import { TiketsearchComponent } from './tiketsearch/tiketsearch.component'
 import { FormsModule } from '@angular/forms';
@@ -39,7 +39,6 @@ import { EmployeeactivityComponent } from './admin/employee/employeeactivity/emp
     MoviesComponent,
     ReviewComponent,
     BookingComponent,
-    BookingFailedComponent,
     SearchComponent,
     TiketsearchComponent,
     AdminComponent,

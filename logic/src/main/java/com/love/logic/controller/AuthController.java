@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.love.logic.models.ERole;
 import com.love.logic.models.Role;
+import com.love.logic.models.ScreenDetails;
 import com.love.logic.models.User;
 import com.love.logic.payload.request.LoginRequest;
 import com.love.logic.payload.request.SignupRequest;
 import com.love.logic.payload.response.JwtResponse;
 import com.love.logic.payload.response.MessageResponse;
 import com.love.logic.repository.RoleRepository;
+import com.love.logic.repository.ScreenDetailsRepo;
+import com.love.logic.repository.ScreenRepo;
 import com.love.logic.repository.UserRepository;
 import com.love.logic.repository.WorkersRepo;
 import com.love.logic.security.UserDetailsImpl;
@@ -46,7 +49,8 @@ public class AuthController {
   @Autowired
   UserRepository userRepository;
   
-
+      @Autowired
+     ScreenRepo screenRpo;
   
   @Autowired
   ManagerServices manSer;
@@ -64,6 +68,12 @@ public class AuthController {
   public String addRoles(@RequestBody Role ro) {
 	return manSer.addRole(ro);
 	  
+  }
+  
+  @PostMapping("/screen")
+  public String addScreen(@RequestBody ScreenDetails datails) {
+	  screenRpo.save(datails);
+	  return "suc";
   }
 
   @PostMapping("/signin")

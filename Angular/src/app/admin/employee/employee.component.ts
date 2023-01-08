@@ -21,6 +21,8 @@ export class EmployeeComponent implements OnInit {
   @Input() code: number = 0;
   @Input() changePass: boolean | undefined;
 
+
+
   user: User = new User();
   employee: NewEmployee = new NewEmployee();
   profile: UpdateProfile = new UpdateProfile();
@@ -165,7 +167,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   viewPerticularEmployee(a: number) {
-    this.oneEmployee = {};
+    this.oneEmployee = null;
     this.service.getOneEmployee(a).subscribe((data) => {
       this.oneEmployee = data;
     });
@@ -197,7 +199,46 @@ export class EmployeeComponent implements OnInit {
     this.profile.password = '';
     this.insideProfile = 'updatePass';
   }
+  password:any={
+    old:'',
+    new:'',
+    finalpass:''
+
+  }
+  validate():boolean{
+
+     if(this.password.finalpass=='' || this.profile.fullName==''|| this.profile.fullName==undefined|| this.profile.password==''|| this.profile.password==undefined){
+        alert("Provide all the input");
+        return false;
+     }
+
+
+return true;
+  }
+
+  UpdatePass(){
+    this.service
+    .updatePassword(this.oneEmployee.workerCode, this.profile)
+    .subscribe((data) => {
+      if (data.message === 'You Entered Old Password...') {
+        alert('You Entered Old Password...');
+      }
+
+      if (data.message === 'Your Old Password is wrong') {
+        alert('Your Old Password is wrong');
+      }
+
+      if (data.message === 'Password Updated') {
+        alert('Password Updated');
+        this.viewPerticularEmployee(this.oneEmployee.workerCode);
+        this.insideProfile = 'myactivity';
+      }
+    });
+  }
   Update(a: string) {
+
+
+
     if (a == 'profile') {
       this.service
         .updateProfile(this.oneEmployee.workerCode, this.profile)
@@ -214,19 +255,15 @@ export class EmployeeComponent implements OnInit {
     }
 
     if (a == 'password') {
-      this.service
-        .updatePassword(this.oneEmployee.workerCode, this.profile)
-        .subscribe((data) => {
-          if (data.message === 'You Entered Old Password...') {
-            alert('You Entered Old Password...');
-          }
-          if (data.message === 'Password Updated') {
-            alert('Password Updated');
-            this.viewPerticularEmployee(this.oneEmployee.workerCode);
-            this.insideProfile = 'myactivity';
-          }
-        });
+
+
+   if( this.validate()){
+   this.UpdatePass();
+  }
+
     }
+
+
   }
 
   acticity() {

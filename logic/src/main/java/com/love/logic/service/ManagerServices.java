@@ -372,16 +372,23 @@ public MessageResponse updateProfile(Integer workerId, UpdateRequest request) {
 
  public MessageResponse changePassword(Integer workerId, String password, String oldpass) {
 	 
-	 workersDetails det=workerrepo.getById(workerId);
+	    workersDetails det=workerrepo.getById(workerId);
 	 
-		if(encoder.matches(password, det.getUser().getPassword())) {
+		if(encoder.matches(password, det.getUser().getPassword())  ) {
+			
           	return new MessageResponse("You Entered Old Password...");
+          	
+		}else if(!encoder.matches(oldpass, det.getUser().getPassword())) {
+			return new MessageResponse("Your Old Password is wrong");
 		}else {
 			String a="";
 			if(det.getAccountStatus().equalsIgnoreCase("YETTOACTIVATE")) {
 				det.setAccountStatus("ACTIVE");
 				a="New Account Activated";
 			}
+			
+			
+			
 			det.getUser().setPassword(encoder.encode(password));
 			workerrepo.save(det);
 			tracking.trackActivity("password changed"+"a", workerId, det.getUser().getUsername());

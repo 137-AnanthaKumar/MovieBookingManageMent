@@ -114,7 +114,7 @@
           <th>MobileNo</th>
        </tr>
 
-     <tr *ngFor="let details of tikets">
+     <tr *ngFor="let details of tikets; let i=index">
           <td>{{details.ticketId}}</td>
           <td>{{details.bookingDate}}</td>
           <td>{{details.bookingTime}}</td>
@@ -124,19 +124,63 @@
           <th><div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
 
-                <button class="" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <button class="" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="viewTicketDetails(i)" aria-expanded="false" aria-controls="flush-collapseOne">
                  View Seats
                 </button>
 
-              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="" *ngFor="let seat of details.seatsForThisBooking">
+              <div id={{details.ticketId}} class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="bg-white" *ngFor="let seat of details.seatsForThisBooking">
                   <p>{{seat.seatNo}} </p>
                 </div>
 
                </div>
-            </div>
 
-          </div></th>
+               <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          #closebutton
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+
+          <tbody>
+            <tr>
+
+              <td>TicketNo</td>
+              <td>Mobile</td>
+              <td>Seats</td>
+            </tr>
+            <tr>
+
+              <td>{{oneTicket.ticketId}}</td>
+              <td>{{oneTicket.mobileNo}}</td>
+              <td><p  *ngFor="let item of oneTicket.seatsForThisBooking"><span style="margin-right: 3px">{{item.seatNo}}</span></p></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  (click)="popUpCloce()" >Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div></th>
 
     </tr>
 

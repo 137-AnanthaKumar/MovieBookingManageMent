@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Logics } from '../logics';
 import { BookMovieDetails, MovieDetails } from '../model/model';
 import { MoviesComponent } from '../movies/movies.component';
@@ -12,6 +13,8 @@ import { ServiceService } from '../service.service';
 export class TableComponent implements OnInit {
   settingpage:string='all'
   insidecontrol:string='controlspage'
+  @ViewChild('closebutton') closebutton: any;
+
 periticuarview:boolean=true;
 msg:string=""
 tikets:any[]=[]
@@ -61,9 +64,17 @@ pathseats:string[]=[];
       }
   }
 ]
-  constructor(private servise:ServiceService, private servicelogic:Logics) { }
+  constructor(private servise:ServiceService, private servicelogic:Logics, @Inject(DOCUMENT) private document: Document) { }
 date:any
 re:any
+public popUpCloce() {
+  this.closebutton.nativeElement.click();
+}
+
+oneTicket:any={}
+viewTicketDetails(index:number){
+  this.oneTicket=this.tikets[index]
+}
 
 changeStatus(id:string){
   console.log(id)

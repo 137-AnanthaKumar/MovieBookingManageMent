@@ -85,7 +85,7 @@ addEmployee(role:string,employee:NewEmployee){
   return this.httpClient.post<any>(`${this.GET_ADDEMPLOYEE}/${role}`,employee)
 }
 
-updatePassword(id:number,data:UpdateProfile){
+updatePassword(id:number,data:any){
   return this.httpClient.put<any>(`${this.GET_UPDATEPASS}/${id}`,data)
 }
 
